@@ -1,0 +1,154 @@
+.class-item{
+    background-color: aliceblue;
+}
+
+.mdi-weather-sunny,.mdi-moon-last-quarter{color: #f1c40f;}
+
+.checkbox-dark-light {
+    opacity: 0;
+    position: absolute;
+}
+  
+.checkbox-label-dark-light {
+    background-color: #111;
+    width: 50px;
+    height: 26px;
+    border-radius: 50px;
+    position: relative;
+    padding: 5px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0;
+}
+
+.checkbox-label-dark-light .ball-dark-light {
+    background-color: #fff;
+    width: 22px;
+    height: 22px;
+    position: absolute;
+    left: 2px;
+    top: 2px;
+    border-radius: 50%;
+    transition: transform 0.2s linear;
+}
+  
+.checkbox-dark-light:checked + .checkbox-label-dark-light .ball-dark-light {
+    transform: translateX(24px);
+}
+:root {
+    --light: #fff;
+    --dark: #191c24;
+}
+.btn-success {
+    background-color: #1c84c6;
+    border-color: #1c84c6;
+    color: #FFFFFF;
+}
+.btn i {
+    margin-right: 0;
+}
+.btn__customer{
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+.table__customer{
+    border: 1px solid var(--light);
+}
+.info-item{
+    margin-bottom: 5px;
+}
+.table__content{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.table__content__item--stt{
+    width: 10%;
+}
+.table__content__item--img{
+    width: 20%;
+}
+.table__content__item--information{
+    width: 30%;
+}
+.table__content__item--address,
+.table__content__item--action{
+    width: 20%;
+}
+
+.img-staff{
+    width: 60px !important;
+    height: 60px !important;
+}
+
+.form__search{
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.form__search--select{
+    width: 20%;
+}
+.form__search--group{
+    width: 60%;
+    margin-left: auto;
+    gap: 10px;
+}
+
+
+.form__search--danger{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30%;
+}
+
+.page-content{
+    margin-top: 50px;
+}
+.panel-title{
+    font-size: 20px;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+.ibox-content{
+    padding-left: 5px;
+}
+.form-control::placeholder{
+    color: var(--dark);
+}
+.panel-head{
+    color: var(--light);
+}
+.card-test{
+    background-color: var(--light);
+}
+.card__test{
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.card__left{
+    width: 50%; 
+}
+.card__right{
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    width: 50%; 
+
+}
+.navbar-nav--test{
+    align-items:center;
+    flex-direction: row;
+    margin-bottom: 20px;
+}
+tbody ,thead {
+    text-align: center;
+}

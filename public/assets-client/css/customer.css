@@ -1,0 +1,8 @@
+.about,.tests{
+    min-height: 1000vh;
+}
+
+.img__information{
+    width: 150px;
+    height: 100px;
+}

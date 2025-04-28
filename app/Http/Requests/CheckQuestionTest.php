@@ -4,14 +4,14 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreClassRequest extends FormRequest
+class CheckQuestionTest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return true;
+        return false;
     }
 
     /**
@@ -22,22 +22,7 @@ class StoreClassRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'tenKhoi' => 'required|unique:khois,tenKhoi',
-            
-            'meTa' => 'required',    
-
-        ];
-    }
-
-    public function messages(): array
-    {
-        return [
-            'tenKhoi.required' => 'Tên lớp học là bắt buộc.',
-            'tenKhoi.unique' => 'Tên lớp học đã tồn tại.',
-
-            'meTa.required' => 'Mô tả là bắt buộc.',
-
-
+            //
         ];
     }
 }

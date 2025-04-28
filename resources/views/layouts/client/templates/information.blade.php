@@ -15,7 +15,7 @@
             </div>
             <div class="col-lg-8 content">
             @if (isset($user) && is_object($user))
-              <h2 class="py-3">Tôi tên là : {{ $user->hoTen }}</h2>
+              <h2 class="py-3">Họ và tên : {{ $user->hoTen }}</h2>
               <div class="row">
                 <div class="col-lg-6">
                   <ul>

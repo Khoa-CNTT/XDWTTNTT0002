@@ -54,7 +54,7 @@
                                     <div class="form-group">
                                         <div class="form-group">
                                             <label for="" class="control-label text-right">Ngày kiểm tra</label>
-                                                <input type="date" name="ngayThi" value="{{ Carbon\Carbon::parse($oneTest->ngayThi)->format('Y-m-d') }}" class="form-control">
+                                                <input type="datetime-local" name="ngayThi" value="{{ Carbon\Carbon::parse($oneTest->ngayThi)->format('Y-m-d') }}" class="form-control">
                                         </div>
                                     </div>
                                 </div>

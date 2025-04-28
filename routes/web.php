@@ -78,12 +78,30 @@ Route::group(['prefix' => 'admin'], function() {
     Route::get('test/delete/{id}', [TestController::class, 'delete'])->middleware('auth.admin')->name('admin.test.delete')->where(['id' => '[0-9]+']);
     Route::delete('test/destroy/{id}', [TestController::class, 'destroy'])->middleware('auth.admin')->name('admin.test.destroy')->where(['id' => '[0-9]+']);
 
+    Route::get('test/{id}/list-test', [TestController::class, 'listQuestion'])->middleware('auth.admin')->name('admin.test.list-test');
+    Route::get('test/{id}/assign-exam', [TestController::class, 'assignExam'])->middleware('auth.admin')->name('admin.test.assign-exam');
+    Route::post('test/assign-exam/add', [TestController::class, 'addAssignExamToUser'])->middleware('auth.admin')->name('admin.test.assign-exam.to-user');
+
+
+    Route::get('test/{id}/list-test/add', [TestController::class, 'addQuestionToTest'])->middleware('auth.admin')->name('admin.test.list-test.add-question');
+    Route::post('test/list-test/add', [TestController::class, 'storeQuestionToTest'])->middleware('auth.admin')->name('admin.test.list-question.store-test');
+    Route::delete('test/list-test/remove-by-id/{id}', [TestController::class, 'removeQuestionById'])->name('admin.class.list-test.remove-question-by-id');
 
 });
 
 
 Route::group(['prefix' => 'admin'], function() {
     Route::get('class', [ClassController::class, 'index'])->middleware('auth.admin')->name('admin.class');
+    Route::get('class/{id}/list-class', [ClassController::class, 'listUser'])->middleware('auth.admin')->name('admin.class.list-class');
+    
+    Route::get('class/{id}/list-class/add', [ClassController::class, 'addStudentToClass'])->middleware('auth.admin')->name('admin.class.list-class.add-user');
+    Route::post('class/list-class/add', [ClassController::class, 'storeStudentToClass'])->middleware('auth.admin')->name('admin.class.list-class.store-user');
+    Route::delete('class/list-class/remove-by-mathanhvien/{maKhoi}/{maThanhVien}', [ClassController::class, 'removeStudent'])
+    ->name('admin.class.list-class.remove-student');
+
+
+
+
     Route::get('class/create', [ClassController::class, 'create'])->middleware('auth.admin')->name('admin.class.create');
     Route::post('class/store', [ClassController::class, 'store'])->middleware('auth.admin')->name('admin.class.store');
     Route::get('class/edit/{id}', [ClassController::class, 'edit'])->middleware('auth.admin')->name('admin.class.edit')->where(['id' => '[0-9]+']);
@@ -110,7 +128,18 @@ Route::get('/user', [ClientController::class, 'index'])->middleware('auth.user')
 
 Route::group(['prefix' => 'user'], function() {
     Route::get('information', [ClientController::class, 'viewInformation'])->middleware('auth.user')->name('user.information');
-    
+    Route::get('class', [ClientController::class, 'viewClass'])->middleware('auth.user')->name('user.class');
+    Route::get('class/{id}/test', [ClientController::class, 'viewClassTest'])->middleware('auth.user')->name('user.class.test')->where(['id' => '[0-9]+']);
+    Route::get('class/test/start/{id}', [ClientController::class, 'testStart'])->middleware('auth.user')->name('user.class.test.start')->where(['id' => '[0-9]+']);
+    Route::get('class/test/take-test/{id}', [ClientController::class, 'takeTest'])->middleware('auth.user')->name('user.class.test.take-test')->where(['id' => '[0-9]+']);
+    Route::get('class/test/{id}/success-test', [ClientController::class, 'successTest'])->name('user.class.test.success-test')->where(['id' => '[0-9]+']);
 
+
+
+    Route::post('class/test/{id}/submit-test', [ClientController::class, 'submitTest'])->name('user.class.test.submit-test')->where(['id' => '[0-9]+']);
+
+
+    Route::get('class/{id}/test-result', [ClientController::class, 'viewResultTest'])->middleware('auth.user')->name('user.class.test-result')->where(['id' => '[0-9]+']);
 
 });
+

@@ -64,7 +64,10 @@
       <ul>
         <li><a href="{{route('client.index')}}" class="{{ request()->routeIs('client.index') ? 'active' : '' }}"><i class="bi bi-house navicon"></i>Trang Chủ</a></li>
         <li><a href="{{route('user.information')}}" class="{{ request()->routeIs('user.information') ? 'active' : '' }}"><i class="bi bi-person navicon"></i> Giới Thiệu</a></li>
-        <li><a href="#test" class="{{ request()->routeIs('test') ? 'active' : '' }}"><i class="bi bi-textarea-t navicon"></i>Bài kiểm tra</a></li>
+        <li><a href="{{route('user.class')}}" class="{{ request()->routeIs('user.class') ? 'active' : '' }}"><i class="bi bi-people-fill navicon"></i>Lớp học</a></li>
+        {{-- <li><a href="{{route('user.test')}}" class="{{ request()->routeIs('user.test') ? 'active' : '' }}"><i class="bi bi-book-half navicon"></i>Bài kiểm tra</a></li> --}}
+        <li><a href="" class=""><i class="bi bi-emoji-expressionless-fill navicon"></i>Xem kết quả</a></li>
+
         
       </ul>
     </nav>
@@ -82,7 +85,7 @@
 
   </main>
 
-  <footer id="footer" class="footer position-relative light-background">
+  {{-- <footer id="footer" class="footer position-relative light-background">
 
     <div class="container">
       <div class="copyright text-center ">
@@ -97,7 +100,7 @@
       </div>
     </div>
 
-  </footer>
+  </footer> --}}
 
   <!-- Scroll Top -->
   <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>

@@ -6,11 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Services\Interfaces\UserServiceInterface as UserService;
 use App\Repository\Interfaces\UserRepositoryInterface as UserRepository;
 use Illuminate\Http\Request;
-use App\Models\GiaoDeThi;
 use App\Models\Result;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\SubmitTestRequest;
-
+use App\Models\Subject;
 
 class ClientController extends Controller
 {
@@ -44,18 +43,48 @@ class ClientController extends Controller
 
 
 
-    public function viewClassTest($id){
+    public function viewClassTest($id, $subject)
+    {
         $user = Auth::user();
-        $classTest = $this->userRepository->classTest($id);
+
+        
+        $classTests = $this->userRepository->classTest($id);
+
+        
+        $filteredClassTests = $classTests->filter(function ($classTest) use ($subject) {
+            return $classTest->monThi == $subject;
+        });
+
+       
         $templateView = 'layouts.client.templates.class.test';
-        return view('layouts.client.index', compact('templateView','user', 'classTest'));
+
+        
+        return view('layouts.client.index', compact('templateView', 'user', 'filteredClassTests'));
     }
 
-    public function viewResultTest($id){
+
+
+
+    public function viewResultTest($id, $subject)
+    {
         $user = Auth::user();
-        $classTest = $this->userRepository->classTest($id);
+
+        $classTests = $this->userRepository->classTest($id);
+        $filteredClassTests = $classTests->filter(function ($classTest) use ($subject) {
+            return $classTest->monThi == $subject;
+        });
+
+        if (is_null($filteredClassTests)) {
+            $classTestIds = collect();
+        } else {
+            $classTestIds = $filteredClassTests->pluck('id');
+        }
+        $results = Result::whereIn('maDeThi', $classTestIds)->get();
+        
+
         $templateView = 'layouts.client.templates.class.testResult';
-        return view('layouts.client.index', compact('templateView','user', 'classTest'));
+
+        return view('layouts.client.index', compact('templateView', 'user', 'results', 'classTestIds'));
     }
 
     public function testStart($id){
@@ -120,6 +149,21 @@ class ClientController extends Controller
            
             return back()->with('error', 'Đã xảy ra lỗi khi nộp bài.');
         }
+    }
+
+    public function viewResult()
+    {
+        $user = Auth::user();
+
+        
+        $result = Result::with('deThi')
+            ->where('maThanhVien', $user->maThanhVien)
+            ->get();
+
+
+        $templateView = 'layouts.client.templates.result';
+
+        return view('layouts.client.index', compact('templateView', 'user', 'result'));
     }
 
 

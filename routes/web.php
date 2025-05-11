@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LogoutController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\FunctionController;
@@ -9,7 +10,10 @@ use App\Http\Controllers\Auth\SubjectController;
 use App\Http\Controllers\Auth\TestController;
 use App\Http\Controllers\Auth\ClassController;
 use App\Http\Controllers\Auth\QuestionController;
+use App\Http\Controllers\Auth\ResultController;
 use App\Http\Controllers\Client\ClientController;
+use App\Exports\ResultUserExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 
 
@@ -42,6 +46,11 @@ Route::get('/login', [LoginController::class, 'showForm'])->name('auth.login');
 Route::post('/login', [LoginController::class, 'login'])->name('auth.login');
 
 Route::get('/logout', [LogoutController::class, 'logout'])->name('auth.logout');
+
+
+Route::get('/register', [RegisterController::class, 'showForm'])->name('auth.register');
+Route::post('/register', [RegisterController::class, 'register'])->name('auth.register');
+
 
 
 Route::group(['prefix' => 'admin'], function() {
@@ -124,12 +133,25 @@ Route::group(['prefix' => 'admin'], function() {
 
 });
 
+
+Route::group(['prefix' => 'admin'], function() {
+    Route::get('result', [ResultController::class, 'index'])->middleware('auth.admin')->name('admin.result');
+    Route::get('result/list/{id}/sub/{subject}', [ResultController::class, 'resultClassTest'])->name('admin.result.list')->where(['id' => '[0-9]+']);
+
+
+});
+
+Route::get('/export-result/{class}/{subject}', function ($classId, $subjectId) {
+    return Excel::download(new ResultUserExport($classId, $subjectId), 'ket-qua-lop-' . $classId . '-mon-' . $subjectId . '.xlsx');
+})->name('export.result');
+
+
 Route::get('/user', [ClientController::class, 'index'])->middleware('auth.user')->name('client.index');
 
 Route::group(['prefix' => 'user'], function() {
     Route::get('information', [ClientController::class, 'viewInformation'])->middleware('auth.user')->name('user.information');
     Route::get('class', [ClientController::class, 'viewClass'])->middleware('auth.user')->name('user.class');
-    Route::get('class/{id}/test', [ClientController::class, 'viewClassTest'])->middleware('auth.user')->name('user.class.test')->where(['id' => '[0-9]+']);
+    Route::get('class/{id}/subject/{subject}/test', [ClientController::class, 'viewClassTest'])->middleware('auth.user')->name('user.class.test')->where(['id' => '[0-9]+']);
     Route::get('class/test/start/{id}', [ClientController::class, 'testStart'])->middleware('auth.user')->name('user.class.test.start')->where(['id' => '[0-9]+']);
     Route::get('class/test/take-test/{id}', [ClientController::class, 'takeTest'])->middleware('auth.user')->name('user.class.test.take-test')->where(['id' => '[0-9]+']);
     Route::get('class/test/{id}/success-test', [ClientController::class, 'successTest'])->name('user.class.test.success-test')->where(['id' => '[0-9]+']);
@@ -139,7 +161,7 @@ Route::group(['prefix' => 'user'], function() {
     Route::post('class/test/{id}/submit-test', [ClientController::class, 'submitTest'])->name('user.class.test.submit-test')->where(['id' => '[0-9]+']);
 
 
-    Route::get('class/{id}/test-result', [ClientController::class, 'viewResultTest'])->middleware('auth.user')->name('user.class.test-result')->where(['id' => '[0-9]+']);
+    Route::get('class/{id}/subject/{subject}/test-result', [ClientController::class, 'viewResultTest'])->middleware('auth.user')->name('user.class.test-result')->where(['id' => '[0-9]+']);
 
 });
 

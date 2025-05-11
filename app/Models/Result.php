@@ -17,5 +17,13 @@ class Result extends Model
         'maDeThi',
         'soCauDung', 'diemThi', 'thoiGianVaoThi', 'thoiGianLamBai'
     ];
-}
 
+    public function deThi()
+    {
+        return $this->belongsTo(Test::class, 'maDeThi', 'id'); 
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'maThanhVien', 'maThanhVien');
+    }
+}

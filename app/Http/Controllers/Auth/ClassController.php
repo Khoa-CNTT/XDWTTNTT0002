@@ -8,6 +8,7 @@ use App\Repository\Interfaces\ClassRepositoryInterface as ClassRepository;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreClassRequest;
+use App\Http\Requests\UpdateClassRequest;
 use App\Repository\Interfaces\UserRepositoryInterface as UserRepository;
 use App\Repository\UserRepository as RepositoryUserRepository;
 use App\Models\ClassDetail;
@@ -77,7 +78,7 @@ class ClassController extends Controller
         return view('layouts.admin.dashboard', compact('templateView', 'users','oneClass'));
     }
 
-    public function update($id,StoreClassRequest $request) {
+    public function update($id,UpdateClassRequest $request) {
 
         if($this->classService->update($id ,$request)){
             return redirect()->route('admin.class')->with('success', 'Cập nhật lớp học thành công');

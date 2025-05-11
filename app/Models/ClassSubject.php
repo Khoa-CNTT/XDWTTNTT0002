@@ -24,6 +24,10 @@ class ClassSubject extends Model
         return $this->belongsToMany(Test::class, 'giaodethi', 'maKhoi', 'maDeThi');
     }
 
+    public function subjects() {
+        return $this->hasMany(Subject::class, 'maKhoi');
+    }
+
 
 
     protected $table = 'khois';

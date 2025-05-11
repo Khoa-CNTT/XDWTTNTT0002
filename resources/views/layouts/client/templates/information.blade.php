@@ -10,11 +10,11 @@
         <div class="container" data-aos="fade-up" data-aos-delay="100">
   
           <div class="row gy-4 justify-content-center">
+            @if (isset($user) && is_object($user))
             <div class="col-lg-4">
-              <img src="assets-client/img/my-profile-img.jpg" class="img-fluid" alt="">
+              <img src="{{ asset($user->img) }}" class="img-fluid" alt="">
             </div>
             <div class="col-lg-8 content">
-            @if (isset($user) && is_object($user))
               <h2 class="py-3">Họ và tên : {{ $user->hoTen }}</h2>
               <div class="row">
                 <div class="col-lg-6">
@@ -28,8 +28,7 @@
                 <div class="col-lg-6">
                   <ul>
                     <li><i class="bi bi-chevron-right"></i> <strong>Mã thành viên:</strong> <span>{{ $user->maThanhVien }}</span></li>
-                    <li><i class="bi bi-chevron-right"></i> <strong>Giới tính</strong> <span>{{ $user->gioiTinh == 1 ? 'Nam' : 'Nữ' }}</span></li>
-                    <li><i class="bi bi-chevron-right"></i> <strong>Ảnh đại diện:</strong> <img class="img__information" src="{{ asset($user->img) }}" alt="avt"></li>
+                    <li><i class="bi bi-chevron-right"></i> <strong>Giới tính: </strong> <span>{{ $user->gioiTinh == 1 ? 'Nữ' : 'Nam' }}</span></li>
                   </ul>
                 </div>
               </div>

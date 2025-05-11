@@ -44,7 +44,7 @@
 
     @if (isset($user) && is_object($user))
     <div class="profile-img">
-      <img src="{{ asset($user->img) }}" alt="avt" class="img-fluid rounded-circle">
+      <img src="{{ isset($user->img) && !empty($user->img) ? asset($user->img) : asset('assets-client/img/no-user.png') }}" alt="avt" class="img-fluid rounded-circle">
 
     </div>
 
@@ -65,10 +65,11 @@
         <li><a href="{{route('client.index')}}" class="{{ request()->routeIs('client.index') ? 'active' : '' }}"><i class="bi bi-house navicon"></i>Trang Chủ</a></li>
         <li><a href="{{route('user.information')}}" class="{{ request()->routeIs('user.information') ? 'active' : '' }}"><i class="bi bi-person navicon"></i> Giới Thiệu</a></li>
         <li><a href="{{route('user.class')}}" class="{{ request()->routeIs('user.class') ? 'active' : '' }}"><i class="bi bi-people-fill navicon"></i>Lớp học</a></li>
-        {{-- <li><a href="{{route('user.test')}}" class="{{ request()->routeIs('user.test') ? 'active' : '' }}"><i class="bi bi-book-half navicon"></i>Bài kiểm tra</a></li> --}}
-        <li><a href="" class=""><i class="bi bi-emoji-expressionless-fill navicon"></i>Xem kết quả</a></li>
-
-        
+        <li class="dropdown"><a href="#" class=""><i class="bi bi-menu-button navicon"></i> <span>Cài đặt</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+          <ul class="">
+            <li><a href="{{ route('auth.logout') }}">Đăng xuất</a></li>
+          </ul>
+        </li>
       </ul>
     </nav>
 

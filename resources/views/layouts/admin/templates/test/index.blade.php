@@ -17,7 +17,7 @@
               <option value="{{$i}}">{{$i}} bản ghi</option>
               @endfor
             </select>
-            <div class="input-group form__search--group">
+            <div class="input-group form__search--group"> 
               <input type="text" name="keyword" value="" placeholder="Nhập từ khoá tìm kiếm" class="form-control form__search--input">
               <span class="input-group-append form__search--append">
                   <button type="submit" name="search" value="search" class="btn btn-primary btn-sm"> Tìm kiếm</button>

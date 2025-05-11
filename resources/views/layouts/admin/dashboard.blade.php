@@ -138,6 +138,18 @@
               <span class="menu-title">Bài Kiểm Tra</span>
             </a>
           </li>
+          <li class="nav-item nav-item-li menu-items">
+            <a
+              class="nav-link"
+              href="{{ route('admin.result') }}"
+              data-template="result"
+            >
+              <span class="menu-icon">
+                <i class="mdi mdi-notebook-multiple"></i>
+              </span>
+              <span class="menu-title">Xem kết quả</span>
+            </a>
+          </li>
         </ul>
       </nav>
       <!-- partial -->

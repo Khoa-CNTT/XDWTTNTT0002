@@ -17,41 +17,40 @@
       </div>
     </div>
     
-    @if (isset($classTest) && count($classTest) > 0)
-    @foreach($classTest as $index => $test)
-    <div class="list-test">
-      <div class="block block-rounded block-fx-pop mb-3">
-        <div class="block-content block-content-full border-start border-3">
-          <div class="d-md-flex justify-content-md-between align-items-md-center">
-            <div class="p-1 p-md-3">
-              <h3 class="h4 fw-bold mb-3">
-                {{ $test->tenBaiThi }}
-              </h3>
-              <p class="fs-sm text-muted mb-0">
-                <i class="fa fa-clock me-1"></i> Diễn ra từ 
-                <span>{{ \Carbon\Carbon::parse($test->ngayThi)->format('d/m/Y h:i A') }}</span> 
-                đến 
-                <span>{{ \Carbon\Carbon::parse($test->ngayKetThucThi)->format('d/m/Y h:i A') }}</span>
-
-                </p>
+    @if (isset($filteredClassTests) && count($filteredClassTests) > 0)
+    @foreach($filteredClassTests as $index => $test)
+        <div class="list-test">
+            <div class="block block-rounded block-fx-pop mb-3">
+                <div class="block-content block-content-full border-start border-3">
+                    <div class="d-md-flex justify-content-md-between align-items-md-center">
+                        <div class="p-1 p-md-3">
+                            <h3 class="h4 fw-bold mb-3 d-md-flex">
+                                {{ $test->tenBaiThi }}
+                            </h3>
+                            <p class="fs-sm text-muted mb-0">
+                                <i class="fa fa-clock me-1"></i> Diễn ra từ 
+                                <span>{{ \Carbon\Carbon::parse($test->ngayThi)->format('d/m/Y h:i A') }}</span> 
+                                đến 
+                                <span>{{ \Carbon\Carbon::parse($test->ngayKetThucThi)->format('d/m/Y h:i A') }}</span>
+                            </p>
+                        </div>
+                        <div class="p-1 p-md-3">
+                            @if (\Carbon\Carbon::now()->gt(\Carbon\Carbon::parse($test->ngayKetThucThi)))
+                                <button class="btn btn-danger border rounded-pill px-3 me-1 my-1" disabled="">Quá hạn</button>
+                            @else
+                                <button class="btn btn-success rounded-pill px-3 me-1 my-1" disabled="">Chưa làm</button>
+                            @endif
+                            <a class="btn btn-info border rounded-pill px-3 me-1 my-1" href="{{ route('user.class.test.start', $test->id) }}">Xem chi tiết</a>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="p-1 p-md-3">
-                @if (\Carbon\Carbon::now()->gt(\Carbon\Carbon::parse($test->ngayKetThucThi)))
-                    <button class="btn btn-danger border rounded-pill px-3 me-1 my-1" disabled="">Quá hạn</button>
-                @else
-                    <button class="btn btn-success rounded-pill px-3 me-1 my-1" disabled="">Chưa làm</button>
-                @endif
-                <a class="btn btn-info border rounded-pill px-3 me-1 my-1" href="{{ route('user.class.test.start', $test->id) }}">Xem chi tiết</a>
-              </div>
-          </div>
         </div>
-      </div>
-    </div>
     @endforeach
     @else
-    <div class="alert alert-warning">
-        Không có bài kiểm tra nào.
-    </div>
+        <div class="alert alert-warning">
+            Không có bài kiểm tra nào.
+        </div>
     @endif
   </div>
   

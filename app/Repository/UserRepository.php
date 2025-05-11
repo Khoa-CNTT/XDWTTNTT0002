@@ -10,6 +10,7 @@ use App\Models\CauHoiDeThi;
 use App\Models\Test;
 use App\Models\Question;
 use App\Models\Result;
+use App\Models\Subject;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -86,11 +87,23 @@ class UserRepository implements UserRepositoryInterface
     }
     
     public function classUser() {
+        $user = Auth::user(); 
         
-        $user = Auth::user();     
-        $userClasses = ClassDetail::where('maThanhVien', $user->maThanhVien)->with(['subject', 'khoi'])->get();
-        return $userClasses;
+        
+        $userClasses = ClassDetail::where('maThanhVien', $user->maThanhVien)
+                        ->with(['subject', 'khoi'])
+                        ->get();
+
+        
+        $maKhoiList = $userClasses->pluck('maKhoi')->unique();
+
+        
+        $monHocs = Subject::whereIn('maKhoi', $maKhoiList)->get();
+        
+
+        return $monHocs;
     }
+
 
 
     public function classTest($id)

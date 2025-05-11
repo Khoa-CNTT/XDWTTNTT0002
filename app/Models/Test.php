@@ -22,4 +22,8 @@ class Test extends Model
         return $this->belongsToMany(Question::class, 'cauhoi_dethi', 'dethi_id', 'cauhoi_id');
     }
    
+    public function monHoc()
+    {
+        return $this->belongsTo(Subject::class, 'monThi');
+    }
 }

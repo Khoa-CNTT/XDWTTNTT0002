@@ -49,7 +49,6 @@
                                                 <th>STT</th>
                                                 <th>Câu hỏi</th>
                                                 <th>Môn học</th>
-                                                <th>Mức độ</th>
                                                 <th>Hành Động</th>
                                             </tr>
                                         </thead>
@@ -58,10 +57,11 @@
                                             <tr>
                                                 <td>{{ $loop->iteration}}</td>
                                                 <td>{{$question->cauHoi}}</td>
-                                                <td>{{$question->ghiChu}}</td>
-                                                <td>{{$question->mucDo->tenMucDo}}</td>
+                                                <td>{{$question->monHoc->tenMonHoc}}</td>
                                                 <td>
-                                                    @if (!in_array($question->id, $questionsInTest))
+                                                    @if ($addedQuestionsCount >= $test->soLuongCauHoi)
+                                                        <button class="ms-3 btn btn-secondary" disabled>Đã đủ câu hỏi</button>
+                                                    @elseif (!in_array($question->id, $questionsInTest))
                                                         <form action="{{ route('admin.test.list-question.store-test') }}" method="POST">
                                                             @csrf
                                                             <input name="cauhoi_id" type="hidden" value="{{ $question->id }}">

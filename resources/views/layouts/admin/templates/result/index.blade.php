@@ -1,15 +1,10 @@
-<div class="container mt-5 mb-5">
-    <div class="row">
-        @if (isset($classUser) && count($classUser) > 0)
-            @foreach($classUser as $index => $subject)
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="row">
+           @if (isset($classes) && count($classes) > 0)
+            @foreach($classes as $index => $subject)
                 <div class="col-md-6 col-xl-4 mb-5">
                     <div class="block block-rounded h-100">
-                        <div class="block-header">
-                            <div class="flex-grow-1 text-muted fs-sm fw-semibold">
-                                <img class="img-avatar img-avatar32 img-avatar-thumb me-2" src="{{ asset($user->img) }}" alt="avt">
-                                <span>{{ $user->hoTen }}</span>
-                            </div>
-                        </div>
                         <div class="block-content bg-body-light text-center">
                             <h3 class="fs-4 mb-3">
                                 {{ $subject->tenMonHoc }}
@@ -25,13 +20,8 @@
                         </div>
                         <div class="block-content block-content-full">
                             <div class="row g-sm">
-                                <div class="col-12 mb-3">
-                                    <a class="btn w-100 btn-secondary btn-view-group" href="{{ route('user.class.test', ['id' => $subject->maKhoi , 'subject' => $subject->id]) }}">
-                                        <i class="bi bi-search"></i> Xem bài kiểm tra
-                                    </a>
-                                </div>
                                 <div class="col-12">
-                                    <a class="btn w-100 btn-secondary btn-view-group" href="{{ route('user.class.test-result', ['id' => $subject->maKhoi , 'subject' => $subject->id]) }}">
+                                    <a class="btn w-100 btn-secondary btn-view-group" href="{{ route('admin.result.list', ['id' => $subject->maKhoi , 'subject' => $subject->id]) }}">
                                         <i class="bi bi-emoji-expressionless-fill navicon"></i> Xem kết quả
                                     </a>
                                 </div>
@@ -44,9 +34,10 @@
         @else
             <div class="col-12 text-center mt-5">
                 <div class="alert alert-warning" role="alert">
-                    Bạn chưa được giáo viên thêm vào lớp.
+                    Chưa có lớp nào
                 </div>
             </div>
         @endif
+        </div>
     </div>
 </div>

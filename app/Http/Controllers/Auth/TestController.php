@@ -105,21 +105,42 @@ class TestController extends Controller
 
 
     public function addQuestionToTest($id){
-        $questions =  $this->testRepository->getAllQuestion();
+        $questions = $this->testRepository->getAllQuestion();
         $test = $this->testRepository->findById($id);
-        
-        
+    
         $questionsInTest = CauHoiDeThi::where('dethi_id', $id)->pluck('cauhoi_id')->toArray();
+    
         
+        $addedQuestionsCount = CauHoiDeThi::where('dethi_id', $id)->count();
+    
         $templateView = 'layouts.admin.templates.test.addQuestionToTest';
-        return view('layouts.admin.dashboard', compact('templateView', 'questions', 'test', 'questionsInTest'));
+        return view('layouts.admin.dashboard', compact(
+            'templateView',
+            'questions',
+            'test',
+            'questionsInTest',
+            'addedQuestionsCount'
+        ));
     }
 
-    public function storeQuestionToTest(Request $request){
-        $payload = $request->all();
-        CauHoiDeThi::create($payload);
+    public function storeQuestionToTest(Request $request)
+    {
+        $testId = $request->dethi_id;
+        $test = Test::find($testId);
+
         
-        return redirect()->route('admin.test.list-test', $request->dethi_id)->with('success', 'Thêm câu hỏi vào bài thi thành công');
+        $currentCount = CauHoiDeThi::where('dethi_id', $testId)->count();
+
+        if ($currentCount >= $test->soLuongCauHoi) {
+            return redirect()->back()->with('error', 'Bài kiểm tra đã đủ số lượng câu hỏi. Không thể thêm nữa.');
+        }
+
+        
+        $payload = $request->only(['cauhoi_id', 'dethi_id']);
+        CauHoiDeThi::create($payload);
+
+        return redirect()->route('admin.test.list-test', $testId)
+                        ->with('success', 'Thêm câu hỏi vào bài thi thành công');
     }
 
     public function removeQuestionById($id)

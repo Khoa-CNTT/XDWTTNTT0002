@@ -27,6 +27,7 @@ class TestRepository implements TestRepositoryInterface
 
     public function getAllPaginate()
     {
+        
         return Test::paginate(10);
     }
 
